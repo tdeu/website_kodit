@@ -1,0 +1,48 @@
+{
+    "services": "Services",
+    "web": "Developpement Web",
+    "software": "Developpement logiciel",
+    "branding" : "Branding & Design",
+    "social" : "Developpement Blockchain",
+    "start_building" : "Construisons Ensemble",
+    "about_us" : "A Propos",
+    "anticipate" : "Anticiper la technologie de demain des aujourd'hui",
+    "header_description" : "KODIT anticipe le paysage numérique de demain. Notre passion pour les nouvelles technologies nous inspire à créer un avenir numérique futuriste",
+    "web_p1" : "Kodit va bien au-delà du simple codage pour créer des expériences web immersives d'une sophistication exceptionnelle. Nos interfaces élégantes et nos fonctionnalités sur mesure transforment votre site en un symbole d'innovation, augmentant ainsi votre efficacité et vos revenus.",
+    "web_p2" : "Optez pour notre expertise et propulsez votre présence en ligne vers de nouveaux sommets.",
+    "soft_p1" : "Kodit offre des solutions logicielles novatrices qui accélèrent votre transformation numérique. Grâce à notre approche agile et notre expertise pointue, nous développons des applications qui optimisent vos processus métier et intègrent les dernières avancées technologiques.",
+    "soft_p2" : "Adoptez nos solutions personnalisées dès aujourd'hui et boostez votre efficacité opérationnelle tout en renforçant votre compétitivité sur le marché.",
+    "branding_p1" : "Notre équipe redéfinit votre identité avec une fusion unique d'art et de technologie. De la conception de votre logo à l'emballage de vos produits, nous vous aidons à créer une image de marque qui laisse une impression durable.",
+    "branding_p2" : "Tissez une histoire de marque captivante qui résonne chez votre audience.",
+    "social_p1" : "Découvrez le potentiel du Web 3.0 avec Kodit, experts en développement d'applications décentralisées (DApps). Grâce à notre expertise en Blockchain et l'utilisation de contrats intelligents, nous concevons des solutions robustes et transparentes. Notre approche collaborative et nos méthodologies itératives assurent des interfaces intuitives et des architectures sécurisées et immuables.",
+    "social_p2" : "Faites le pas vers le Web3 avec Kodit, où la décentralisation et la transparence deviennent les fondements de votre réussite.",
+    "project_life_cycle" : "Derniers Recits du futur",
+    "first_name" : "Nom",
+    "last_name" : "Prenom",
+    "email_address" : "Adresse email",
+    "phone_number" : "Numéro de téléphone",
+    "select_a_service" : "Selectionner un service",
+    "message" : "Message",
+    "submit" : "Envoyer",
+    "contact_us" : "Contactez nous",
+    "follow_us" : "Suivez nous",
+    "other" : "Autre",
+    "all_rights" : "Tous droits réservés.",
+    "our_latest_insights": "Derniers recits du futur", 
+          "kodit_ai": "Kodit AI",
+          "about_kodit": "A propos de Kodit",
+          "about_kodit_text": "Basée à Abidjan, en Côte d'Ivoire, Kodit est une entreprise dynamique spécialisée dans les solutions logicielles, mobilisant des talents locaux pour proposer des innovations adaptées aux besoins uniques de nos clients.",
+          "our_mission": "Notre Mission",
+          "mission_text": "Combler le fossé entre la technologie de pointe et les défis commerciaux réels en combinant la puissance des dernières innovations logicielles avec notre expertise technique et nos esprits créatifs. Cela nous permet de proposer des solutions personnalisées qui stimulent la croissance et l'efficacité pour nos clients.",
+          "our_approach": "Notre Approche",
+          "approach_text": "Nous adoptons une approche collaborative pour chaque projet. Nous travaillons en étroite collaboration avec nos clients pour comprendre leurs besoins spécifiques et développer des solutions adaptées. Notre engagement envers l'excellence et la satisfaction client nous distingue.",
+          "our_commitment": "Notre Engagement",
+          "commitment_text": "Fournir des solutions de haute qualité qui ajoutent une valeur tangible aux entreprises de nos clients. Que ce soit en développant des applications logicielles innovantes ou en élaborant des stratégies de branding percutantes, notre engagement est de propulser nos clients vers le succès.",
+          "close": "Fermer", 
+          "contact_us_now": "Demandez un Devis"
+    
+      
+
+
+
+}
