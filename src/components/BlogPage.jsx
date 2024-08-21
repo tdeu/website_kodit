@@ -5,6 +5,8 @@ import './BlogPage.css';
 const BlogPage = () => {
   const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const imageMap = [
     'nostr.jpeg',
@@ -27,24 +29,50 @@ const BlogPage = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
+      setIsLoading(true);
+      setError(null);
       try {
+        console.log('Fetching posts...');
         const response = await fetch(
-          'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@0xkodit'
+          `https://api.allorigins.win/get?url=${encodeURIComponent('https://medium.com/feed/@0xkodit')}`
         );
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        console.log('Fetched posts:', data.items);
+        console.log('Received data:', data);
+        
+        // Parse the XML content using the browser's DOMParser
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+        
+        // Extract items from the XML
+        const items = Array.from(xmlDoc.getElementsByTagName('item')).map(item => ({
+          title: item.getElementsByTagName('title')[0].textContent,
+          pubDate: item.getElementsByTagName('pubDate')[0].textContent,
+          link: item.getElementsByTagName('link')[0].textContent,
+          guid: item.getElementsByTagName('guid')[0].textContent,
+          author: item.getElementsByTagName('dc:creator')[0].textContent,
+        }));
+
+        console.log('Parsed items:', items);
+        
+        if (!items || items.length === 0) {
+          throw new Error('No items found in the API response');
+        }
         
         // Add the latest article to the beginning of the array
-        const allPosts = [latestArticle, ...data.items.filter(item => item.guid !== latestArticle.guid)];
+        const allPosts = [latestArticle, ...items.filter(item => item.guid !== latestArticle.guid)];
         
         // Sort posts by date, most recent first
         const sortedPosts = allPosts.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+        console.log('Sorted posts:', sortedPosts);
         setPosts(sortedPosts);
       } catch (error) {
         console.error('Error fetching Medium posts:', error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -62,28 +90,42 @@ const BlogPage = () => {
     <div className="blog-page">
       <h2 className="page-title">{t('our_latest_insights')}</h2>
       <div className="center-line"></div>
-      <ul className="post-list">
-        {posts.map((post, index) => {
-          const imageFile = index < imageMap.length ? imageMap[index] : 'default-image.jpg';
+      {isLoading ? (
+        <p>Loading posts...</p>
+      ) : error ? (
+        <div>
+          <p>Error: {error}</p>
+          <p>Please try again later.</p>
+        </div>
+      ) : posts.length > 0 ? (
+        <ul className="post-list">
+          {posts.map((post, index) => {
+            const imageFile = index < imageMap.length ? imageMap[index] : 'default-image.jpg';
 
-          return (
-            <li key={post.guid} className={`post-item ${index % 2 === 0 ? 'left-align' : 'right-align'}`}>
-              <a href={post.link} target="_blank" rel="noopener noreferrer">
-                <div className={`post-thumbnail-container ${index % 2 === 0 ? 'left-side' : 'right-side'}`}>
-                  <img
-                    className="post-thumbnail"
-                    src={`/images/blogpics/${imageFile}`}
-                    alt="Post Thumbnail"
-                  />
-                  <div className="overlay">
-                    <span className="post-title">{truncateString(post.title, 50)}</span>
+            return (
+              <li key={post.guid} className={`post-item ${index % 2 === 0 ? 'left-align' : 'right-align'}`}>
+                <a href={post.link} target="_blank" rel="noopener noreferrer">
+                  <div className={`post-thumbnail-container ${index % 2 === 0 ? 'left-side' : 'right-side'}`}>
+                    <img
+                      className="post-thumbnail"
+                      src={`/images/blogpics/${imageFile}`}
+                      alt="Post Thumbnail"
+                    />
+                    <div className="overlay">
+                      <span className="post-title">{truncateString(post.title, 50)}</span>
+                    </div>
                   </div>
-                </div>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <div>
+          <p>No posts found. Please try again later.</p>
+          <p>Debug info: isLoading = {isLoading.toString()}, posts.length = {posts.length}</p>
+        </div>
+      )}
     </div>
   );
 };
