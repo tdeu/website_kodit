@@ -6,12 +6,13 @@ function Main() {
   const [posts, setPosts] = useState([]);
 
   const imageMap = [
+    'mask1.jpeg',
+    'ivoiro.jpeg',
+    'nostr.jpeg',
     'nostr.jpeg',
     'ants_pic.jpeg',
     'trilemne.jpeg',
-    'image1.jpeg',
-    'image2.jpeg',
-    'image4.jpg',
+ 
   ];
 
   // Hardcoded latest article

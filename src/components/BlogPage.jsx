@@ -7,8 +7,11 @@ const BlogPage = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const imageMap = [
+    'mask1.jpeg',
+    'ivoiro.jpeg',
     'nostr.jpeg',
     'ants_pic.jpeg',
     'trilemne.jpeg',
@@ -77,6 +80,15 @@ const BlogPage = () => {
     };
 
     fetchPosts();
+
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+
+    return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
   const truncateString = (str, num) => {
@@ -111,7 +123,7 @@ const BlogPage = () => {
                       src={`/images/blogpics/${imageFile}`}
                       alt="Post Thumbnail"
                     />
-                    <div className="overlay">
+                    <div className={`overlay ${isMobile ? 'mobile' : ''}`}>
                       <span className="post-title">{truncateString(post.title, 50)}</span>
                     </div>
                   </div>
