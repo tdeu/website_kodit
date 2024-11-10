@@ -2,14 +2,13 @@ import { changeLanguage } from 'i18next';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18next from "i18next";
-import { Link, useLocation } from 'react-router-dom'; // Import de useLocation pour obtenir la route actuelle
+import { Link, useLocation } from 'react-router-dom';
 
 function Nav() {
     const { t } = useTranslation();
-    const location = useLocation(); // Obtenir l'objet location de react-router-dom
+    const location = useLocation();
 
     useEffect(() => {
-        // Assurez-vous que les dropdowns sont initialisés correctement
         const dropdowns = document.querySelectorAll('.navigation .menu .se');
         dropdowns.forEach(dropdown => {
             dropdown.addEventListener('click', function () {
@@ -18,7 +17,6 @@ function Nav() {
         });
     }, []);
 
-    // Fonction pour déterminer si l'utilisateur est sur la page blog
     const isOnBlogPage = location.pathname === '/blog';
 
     return (
@@ -36,7 +34,7 @@ function Nav() {
                         </li>
                         <li>
                             <span className="se">
-                                {t('services')} <i className="fas fa-chevron-down"></i>
+                                {t('solutions')} <i className="fas fa-chevron-down"></i>
                             </span>
                             <ul className="sub-menu">
                                 <li><a href="/#web">{t('web')}</a></li>
@@ -46,49 +44,49 @@ function Nav() {
                             </ul>
                         </li>
                         <li>
-                            <a href="/#contact-form" className="t">{t('start_building')}</a>
+                            <Link to="/blog" className={isOnBlogPage ? 'active' : ''}>{t('blog')}</Link>
                         </li>
                         <li>
-                            <Link to="/blog" className={isOnBlogPage ? 'active' : ''}>{t('Blog')}</Link>
+                            <a href="/#contact-form" className="t">{t('contact_us')}</a>
                         </li>
                         <li type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <a href="/#about">{t('about_us')}</a>
                         </li>
                         <li>
-                        <div className="li-lang" style={{ backgroundColor: 'black', borderRadius: '5px', padding: '5px 10px' }}>
-    <span className="sreal" style={{ color: 'white' }}>
-        {i18next.language === "en" ? "EN" : "FR"}  
-        <span className="sp-lang" style={{ color: "white", marginLeft: '5px' }}>
-            <i className='fas fa-chevron-down'></i>
-        </span>
-    </span>
-    <div className="lang">
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            <li>
-                <button 
-                    onClick={() => {
-                        localStorage.setItem('locales', "fr");
-                        changeLanguage("fr");
-                    }}
-                    style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}
-                >
-                    FR
-                </button>
-            </li>
-            <li>
-                <button 
-                    onClick={() => {
-                        localStorage.setItem('locales', "en");
-                        changeLanguage("en");
-                    }}
-                    style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}
-                >
-                    EN
-                </button>
-            </li>
-        </ul>
-    </div>
-</div>
+                            <div className="li-lang" style={{ backgroundColor: 'black', borderRadius: '5px', padding: '5px 10px' }}>
+                                <span className="sreal" style={{ color: 'white' }}>
+                                    {i18next.language === "en" ? "EN" : "FR"}  
+                                    <span className="sp-lang" style={{ color: "white", marginLeft: '5px' }}>
+                                        <i className='fas fa-chevron-down'></i>
+                                    </span>
+                                </span>
+                                <div className="lang">
+                                    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                                        <li>
+                                            <button 
+                                                onClick={() => {
+                                                    localStorage.setItem('locales', "fr");
+                                                    changeLanguage("fr");
+                                                }}
+                                                style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}
+                                            >
+                                                FR
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button 
+                                                onClick={() => {
+                                                    localStorage.setItem('locales', "en");
+                                                    changeLanguage("en");
+                                                }}
+                                                style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}
+                                            >
+                                                EN
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>

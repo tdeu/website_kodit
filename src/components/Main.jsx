@@ -3,54 +3,35 @@ import { useTranslation } from "react-i18next";
 
 function Main() {
   const { t } = useTranslation();
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([
+    {
+      title: 'Comment le Nombre 48 a Rendu l IA Accessible a Tous',
+      link: 'https://medium.com/@0xkodit/comment-le-nombre-48-a-rendu-lia-accessible-%C3%A0-tous-a65d8d45a9f7',
+      image: '48COVER.jpeg',
+      guid: '48-article',
+      author: 'Kodit',
+    },
+    {
+      title: 'Detection de masques africains par Machine Learning : vers la préservation numérique du patrimoine',
+      link: 'https://medium.com/@0xkodit/d%C3%A9tection-de-masques-africains-par-machine-learning-vers-la-pr%C3%A9servation-num%C3%A9rique-du-patrimoine-8a9840efadd1',
+      image: 'mask1.jpeg',
+      guid: 'masks-article',
+      author: 'Kodit',
+    },
+    {
+      title: 'Theorie de la Tache de Cafe : Une Analogie Simple pour Comprendre l IA Générative',
+      link: 'https://medium.com/@0xkodit/th%C3%A9orie-de-la-tache-de-caf%C3%A9-une-analogie-simple-pour-comprendre-lia-g%C3%A9n%C3%A9rative-41583c86b203',
+      image: 'tache.jpeg',
+      guid: 'coffee-article',
+      author: 'Kodit',
+    }
+  ]);
 
   const imageMap = [
+    '48COVER.jpeg',
     'mask1.jpeg',
-    'ivoiro.jpeg',
-    'nostr.jpeg',
-    'nostr.jpeg',
-    'ants_pic.jpeg',
-    'trilemne.jpeg',
- 
+    'tache.jpeg'
   ];
-
-  // Hardcoded latest article
-  const latestArticle = {
-    title: 'NOSTR : Simple "Truc" de plus ou Révolution des Réseaux Sociaux ?',
-    pubDate: '2024-08-14 11:59:28',
-    link: 'https://medium.com/@0xkodit/nostr-simple-truc-de-plus-ou-r%C3%A9volution-des-r%C3%A9seaux-sociaux-de13cdfe22fc',
-    guid: 'https://medium.com/p/de13cdfe22fc',
-    author: 'Kodit',
-  };
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch(
-          `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@0xkodit`
-        );
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        console.log('Fetched posts:', data.items);
-        
-        // Add the latest article to the beginning of the array, avoiding duplicates
-        const allPosts = [latestArticle, ...data.items.filter(item => item.guid !== latestArticle.guid)];
-        
-        // Sort posts by date, most recent first
-        const sortedPosts = allPosts.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-        
-        // Get only the latest 3 posts
-        setPosts(sortedPosts.slice(0, 3));
-      } catch (error) {
-        console.error('Error fetching Medium posts:', error);
-      }
-    };
-
-    fetchPosts();
-  }, []);
 
   const truncateString = (str, num) => {
     if (str.length <= num) {
