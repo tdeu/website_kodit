@@ -1,6 +1,14 @@
 export const blogPosts = [
   {
     id: 1,
+    title: 'Du Tissu à l’Algorithme : Les Mathématiques Cachées du Bogolan',
+    pubDate: '2024-08-14 11:59:28',
+    link: 'https://medium.com/@0xkodit/du-tissu-%C3%A0-lalgorithme-les-math%C3%A9matiques-cach%C3%A9es-du-bogolan-c56f79d7d1a1',
+    image: 'bogolan.jpeg',
+    author: 'Kodit',
+  },
+  {
+    id: 1,
     title: 'Comment le Nombre 48 a Rendu l IA Accessible à Tous',
     pubDate: '2024-08-14 11:59:28',
     link: 'https://medium.com/@0xkodit/comment-le-nombre-48-a-rendu-lia-accessible-%C3%A0-tous-a65d8d45a9f7',

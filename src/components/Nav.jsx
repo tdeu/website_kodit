@@ -1,5 +1,5 @@
 import { changeLanguage } from 'i18next';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18next from "i18next";
 import { Link, useLocation } from 'react-router-dom';
@@ -7,15 +7,56 @@ import { Link, useLocation } from 'react-router-dom';
 function Nav() {
     const { t } = useTranslation();
     const location = useLocation();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
+        // Handle dropdowns
         const dropdowns = document.querySelectorAll('.navigation .menu .se');
         dropdowns.forEach(dropdown => {
             dropdown.addEventListener('click', function () {
                 this.nextElementSibling.classList.toggle('show');
             });
         });
-    }, []);
+
+        // Handle menu open/close on iOS and Android
+        const menuEnter = document.getElementById('menu--enter');
+        const menu = document.getElementById('menu');
+        const menuExit = document.querySelector('.menu--exit');
+
+        const handleMenuToggle = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsMenuOpen(prev => !prev);
+            menu.style.right = isMenuOpen ? '-100%' : '0';
+        };
+
+        // Add both click and touchstart events for better cross-platform support
+        ['click', 'touchstart'].forEach(eventType => {
+            menuEnter?.addEventListener(eventType, handleMenuToggle, { passive: false });
+            menuExit?.addEventListener(eventType, handleMenuToggle, { passive: false });
+        });
+
+        // Close menu when clicking outside
+        const handleClickOutside = (e) => {
+            if (isMenuOpen && menu && !menu.contains(e.target) && !menuEnter.contains(e.target)) {
+                setIsMenuOpen(false);
+                menu.style.right = '-100%';
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+        document.addEventListener('touchstart', handleClickOutside, { passive: true });
+
+        // Cleanup event listeners
+        return () => {
+            ['click', 'touchstart'].forEach(eventType => {
+                menuEnter?.removeEventListener(eventType, handleMenuToggle);
+                menuExit?.removeEventListener(eventType, handleMenuToggle);
+            });
+            document.removeEventListener('click', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
+        };
+    }, [isMenuOpen]);
 
     const isOnBlogPage = location.pathname === '/blog';
 
